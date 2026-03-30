@@ -1,0 +1,21 @@
+# Entorno virtual de Python
+venv/
+
+# Archivos de base de datos
+*.db
+
+# Archivos de Python compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de configuración de VSCode
+.vscode/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Capturas de pantalla (si las agregas a una carpeta específica, por ejemplo 'capturas/')
+# capturas/
