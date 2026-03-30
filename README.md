@@ -119,4 +119,4 @@ SELECT * FROM tareas;
 
 Las capturas de pantalla que verifican el funcionamiento de los endpoints (registro, login, crear tarea, ver tareas) se encuentran en la carpeta `registro/` junto con el archivo `registro.md`.
 
----
+Puedes ver el paso a paso y las capturas de pantalla accediendo a [registro/registro.md](registro/registro.md).
