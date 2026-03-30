@@ -71,7 +71,7 @@
 	- Estado: Finalizado
 
 
-10. Subir a repositorio Github y configurar Github Pages
+10. Subir a repositorio Github y configurar Github Pages ✅ COMPLETADO
 	- Subir código, documentación y capturas
 	- Configurar Github Pages para alojar el proyecto
 	- **Último paso**
