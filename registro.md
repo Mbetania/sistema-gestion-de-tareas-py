@@ -1,1 +1,0 @@
-![registro-usuario](image.png)

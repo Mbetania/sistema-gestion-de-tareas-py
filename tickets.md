@@ -58,7 +58,7 @@
 	- Estado: Finalizado
 
 
-8. Realizar pruebas y capturas de pantalla
+8. Realizar pruebas y capturas de pantalla ✅ ACTUALIZADO
 	- Probar todos los endpoints y flujos (con password y JWT)
 	- Guardar capturas para la entrega
 	- **Bloquea:** Entrega final
