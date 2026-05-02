@@ -1,7 +1,7 @@
 # servidor.py
 # API Flask para gestión de tareas (estructura modular)
 
-from flask import Flask
+from flask import Flask, render_template
 import os
 from db import get_db, close_db, init_db
 from routes.usuarios import usuarios_bp
@@ -18,6 +18,10 @@ def create_app():
     except ImportError:
         from .routes.tareas import tareas_bp
     app.register_blueprint(tareas_bp)
+
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
     # Teardown y comandos CLI
     app.teardown_appcontext(close_db)
