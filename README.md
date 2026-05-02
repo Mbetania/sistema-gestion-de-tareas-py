@@ -11,8 +11,7 @@ Proyecto PFO 2 - API Flask + SQLite
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install flask
-pip install werkzeug
+pip install -r requirements.txt
 ```
 
 
@@ -48,9 +47,19 @@ El archivo cliente.py permite interactuar con la API desde la terminal.
 	source venv/bin/activate
 	python cliente.py
 	```
-3. Sigue el menú para registrar usuario, hacer login (se generara un token), ver bienvenida y crear tareas.
+3. Seguí el menú interactivo:
 
-**Nota:** Para endpoints protegidos, el cliente debe usar el token JWT devuelto por el login. Se reutiliza el token automáticamente.
+| Opción | Acción |
+|--------|--------|
+| 1 | Registrar usuario |
+| 2 | Login (guarda el token automáticamente) |
+| 3 | Ver todas las tareas (HTML con estado ✔️ / ❌) |
+| 4 | Ver tareas pendientes (lista con ID y descripción) |
+| 5 | Crear tarea |
+| 6 | Completar tarea/s (uno o varios IDs separados por coma) |
+| 7 | Salir |
+
+**Nota:** Para endpoints protegidos, el cliente usa el token JWT devuelto por el login de forma automática. El ID de cada tarea aparece en la opción 4 (tareas pendientes) para usarlo en la opción 6. Podés ingresar varios IDs separados por coma: `1, 3, 5`.
 
 ---
 
@@ -98,10 +107,74 @@ El archivo cliente.py permite interactuar con la API desde la terminal.
 }
 ```
 
-## Navegador web
-Probar GET /tareas desde el navegador
+### Ver tareas pendientes (GET /tareas/pendientes)
+- Método: GET
+- URL: http://127.0.0.1:5000/tareas/pendientes
+- Headers:
+	- Authorization: Bearer JWT_TOKEN
+- Respuesta:
+```json
+[
+  {"id": 1, "descripcion": "Sacar la basura"},
+  {"id": 2, "descripcion": "Alimentar mascotas"}
+]
+```
+
+### Marcar tarea como completada (PATCH /tareas/<id>)
+- Método: PATCH
+- URL: http://127.0.0.1:5000/tareas/1
+- Headers:
+	- Authorization: Bearer JWT_TOKEN
+
+### Completar múltiples tareas (PATCH /tareas/completar)
+- Método: PATCH
+- URL: http://127.0.0.1:5000/tareas/completar
+- Headers:
+	- Authorization: Bearer JWT_TOKEN
+- Body: (raw, JSON)
+```
+{
+  "ids": [1, 2, 3]
+}
+```
+- Respuesta:
+```json
+{"completadas": [1, 2], "no_encontradas": [3]}
+```
+
+### Ver todas las tareas JSON (GET /tareas/todas)
+- Método: GET
+- URL: http://127.0.0.1:5000/tareas/todas
+- Headers:
+	- Authorization: Bearer JWT_TOKEN
+- Respuesta:
+```json
+[
+  {"id": 1, "descripcion": "Sacar la basura", "completada": true},
+  {"id": 2, "descripcion": "Alimentar mascotas", "completada": false}
+]
+```
+
+## Interfaz web
+
+Abrí el navegador en:
+
+http://127.0.0.1:5000
+
+La UI permite sin necesidad de token manual:
+- Registrarse e ingresar con usuario y contraseña
+- Ver tareas pendientes o todas las tareas
+- Agregar nuevas tareas
+- Marcar tareas como completadas con un botón
+
+## Navegador web (endpoints directos)
+Probar GET /tareas desde el navegador (requiere token en header):
 
 http://127.0.0.1:5000/tareas
+
+Probar GET /tareas/pendientes (devuelve JSON):
+
+http://127.0.0.1:5000/tareas/pendientes
 
 ## Consultar la base de datos por consola
 
@@ -112,6 +185,12 @@ SELECT * FROM usuarios;
 SELECT * FROM tareas;
 .exit
 ```
+
+---
+
+## Respuestas conceptuales
+
+Ver [RESPUESTAS.md](RESPUESTAS.md)
 
 ---
 
